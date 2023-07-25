@@ -1,22 +1,42 @@
 [org 0x7C00]
 
-; call for print function
-mov bx, string
-call print
-call newline
-call print
+; init the stack
+mov bp, 0x8000
+mov sp, bp
 
-; infinite loop
-jmp $
+; the program!
+mov cl, 0x06    ; set number of iterations
 
+main:
+    cmp cl, 0x00 ; check if loop has finished
+    je main_end
 
-; include everything
+    sub cl, 0x01    ; reduce 'cl'
+
+    ; print string
+    mov bx, string  ; move string address into 'bx' register
+    add bx, cx      ; increment with 'cl' value
+    call print      ; call 'print' function and start a new line
+    call newline
+
+    jmp main
+
+main_end:
+    mov bx, bye_string ; print last string
+    call print
+
+    jmp $   ; infinite loop
+
+; include functions
 %include "print.asm"
 
-; string definition
 string:
-    db "here goes da string!!", 0x00
+    db "hello world!", 0x00
 
-; fill the rest of the binary with 0s till reaching 510
+bye_string:
+    db "maracatones", 0x00
+
+
+; fill the binary
 times 510-($-$$) db 0
-dw 0xAA55 ; last bytes that let BIOS detect the program 
+dw 0xAA55
