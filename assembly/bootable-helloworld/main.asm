@@ -25,10 +25,15 @@ main_end:
     mov bx, bye_string ; print last string
     call print
 
+    call newline
+    mov dx, 0xABCD
+    call print_hex 
+
     jmp $   ; infinite loop
 
 ; include functions
 %include "print.asm"
+%include "print_hex.asm"
 
 string:
     db "hello world!", 0x00
