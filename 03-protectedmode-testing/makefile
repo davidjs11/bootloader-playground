@@ -1,6 +1,7 @@
 all:\
 	compile\
 	run
+
 compile:\
 	main.asm\
 	print.asm\

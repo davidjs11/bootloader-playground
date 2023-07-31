@@ -16,6 +16,7 @@ jmp $ ; do nothing
 %include "print_hex.asm"
 %include "read_disk.asm"
 %include "print_vga.asm"
+%include "gdt.asm"
 
 ; fill the binary with 0s until byte 510
 times 510-($-$$) db 0x00

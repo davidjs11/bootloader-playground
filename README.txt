@@ -10,10 +10,10 @@ assembler: nasm
 virtual machine: qemu
 
 
-================= states ==================
+================= stages ==================
 
 at the moment, there are available three
-states of the project
+stages of the project
 
 - bootable-helloworld
     uses BIOS interrupts to print text
