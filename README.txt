@@ -5,9 +5,10 @@ systems are developed, from the bootloader
 to a simple kernel program, made for the
 x86 processors.
 
-languages: assembly and (soon) C
-assembler: nasm
-virtual machine: qemu
+environment
+    languages: assembly and (soon) C
+    assembler: nasm
+    virtual machine: qemu
 
 
 ================= stages ==================
