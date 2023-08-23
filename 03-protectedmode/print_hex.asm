@@ -1,3 +1,4 @@
+[bits 16]
 ; this function uses int 10,E BIOS interrupt
 ; documentation: https://stanislavs.org/helppc/int_10-e.html
 

@@ -1,3 +1,4 @@
+[bits 16]
 ; these functions use int 10,E BIOS interrupt
 ; documentation: https://stanislavs.org/helppc/int_10-e.html
 
@@ -8,6 +9,7 @@
 ;   all strings must finish with 0x00 byte
 print:
     pusha   ; push all registers into stack
+    mov ah, 0x0E    ; set TTY mode
 
 print_start:
     ; check if the value pointed by bx is 0x00
@@ -15,13 +17,9 @@ print_start:
     cmp al, 0x00
     je print_end
 
-    ; print the value stored in 'al'
-    mov ah, 0x0E    ; set TTY mode
     int 0x10        ; print value 
-
-    ; increment address in 'bx'
-    add bx, 1
-    jmp print_start
+    add bx, 1       ; increment 'bx' pointer
+    jmp print_start ; continue loop
 
 print_end:
     popa    ; recover registers from stack

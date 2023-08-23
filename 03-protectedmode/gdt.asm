@@ -34,7 +34,7 @@ gdt_null:
 
 gdt_code:
     dw 0xFFFF
-    dw 0x00
+    dw 0x0000
     db 0x00
     db 10011010b
     db 11001111b
@@ -83,7 +83,6 @@ gdt_descriptor:
 
 ; --- constants -----------------------------
 CODE_SEGMENT equ gdt_code - gdt_start
-;DATA_SEGMENT equ gdt_data - gdt_start
 DATA_SEGMENT equ gdt_data - gdt_start
 
 

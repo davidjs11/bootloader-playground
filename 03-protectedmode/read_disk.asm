@@ -1,3 +1,4 @@
+[bits 16]
 ; this functions uses int 13,2 BIOS interrupt
 ; documentation: https://stanislavs.org/helppc/int_13-2.html
 

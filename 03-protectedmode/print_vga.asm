@@ -1,3 +1,4 @@
+[bits 32]
 ; this function uses VGA (video graphics array) memory for printing
 ; characters into the screen in 32-bit protected mode.
 ; this mode allows memory and I/O protection, and using the GDT table
@@ -17,9 +18,9 @@ print_vga:
 print_vga_loop:
     ; set character
     mov al, [ebx]   ; get character from buffer
-    mov ah, 0x04    ; (white on black)
+    mov ah, 0x04    ; (red on black)
 
-    cmp al, 0x0    ; check if null-char has been reached
+    cmp al, 0x0     ; check if null-char has been reached
     je print_vga_end
 
     mov [edx], ax   ; set character value into VGA memory
