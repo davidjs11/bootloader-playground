@@ -32,6 +32,11 @@ i decided to separate them in order to show
 the different stages the project has gone
 through.
 
+- extra: c-test
+    just testing how C code, such as variables,
+    function calls and pointers are compiled
+    into machine code.
+
 
 =============== resources =================
 
