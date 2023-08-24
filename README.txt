@@ -16,17 +16,23 @@ environment
 at the moment, there are available three
 stages of the project
 
-- bootable-helloworld
+- 01-bootable-helloworld
     uses BIOS interrupts to print text
     into the screen.
 
-- disk-reading
+- 02-disk-reading
     BIOS interrupts for reading data
     blocks from the disk.
 
-- protectedmode-testing (current)
+- 03-protectedmode
     creates the GDT and jumps into 32bit
-    protected mode of the x86 processor
+    protected mode of the x86 processor.
+
+- 04-first-kernel
+    first steps into writing the kernel
+    program in C, by compiling a simple test
+    and linking it with the bootloader.
+
 
 i decided to separate them in order to show
 the different stages the project has gone
@@ -45,3 +51,6 @@ https://www.cs.bham.ac.uk//~exr/lectures/opsys/10_11/lectures/os-dev.pdf
 
 OSDev Wiki
 https://wiki.osdev.org/
+
+funny video
+https://www.youtube.com/watch?v=2Ufge60nqoc
