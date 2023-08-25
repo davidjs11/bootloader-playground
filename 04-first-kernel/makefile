@@ -19,18 +19,19 @@ boot_sector:\
 kernel:\
 	kernel.c
 	@echo "[+] compiling kernel..."
-	@gcc -ffreestanding -c kernel.c -o kernel.o
-	@ld -o kernel.bin -Ttext 0x1000 kernel.o --oformat binary 
+	@i386-elf-gcc -ffreestanding -c kernel.c -o kernel.o
+	@nasm -f elf kernel_entry.asm -o kernel_entry.o
+	@i386-elf-ld -o kernel.bin -Ttext 0x1000 kernel_entry.o kernel.o --oformat binary 
 
 join:\
 	boot_sector.bin\
 	kernel.bin
 	@echo "[+] joining both boot sector and kernel..."
-	@cat boot_sector.bin kernel.bin > os_image
+	@cat boot_sector.bin kernel.bin > os_image.bin
 
 run:\
 	join
-	@qemu-system-x86_64 os_image 
+	@qemu-system-i386 -fda os_image.bin
 
 clean:
 	@echo "[+] cleaning..."

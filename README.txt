@@ -6,14 +6,15 @@ to a simple kernel program, made for the
 x86 processors.
 
 environment
-    languages: assembly and (soon) C
+    languages: assembly and C
     assembler: nasm
-    virtual machine: qemu
+    compiler/linker: custom builds for i386
+    machine: qemu
 
 
 ================= stages ==================
 
-at the moment, there are available three
+at the moment, there are available four 
 stages of the project
 
 - 01-bootable-helloworld
@@ -41,7 +42,8 @@ through.
 - extra: c-test
     just testing how C code, such as variables,
     function calls and pointers are compiled
-    into machine code.
+    into machine code, using objdump and
+    ndisasm.
 
 
 =============== resources =================
