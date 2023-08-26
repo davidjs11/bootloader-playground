@@ -18,7 +18,7 @@ print_vga:
 print_vga_loop:
     ; set character
     mov al, [ebx]   ; get character from buffer
-    mov ah, 0x04    ; (red on black)
+    mov ah, 0x0F    ; (white on black)
 
     cmp al, 0x0     ; check if null-char has been reached
     je print_vga_end

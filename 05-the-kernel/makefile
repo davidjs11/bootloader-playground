@@ -26,7 +26,7 @@ os_image.bin:\
 
 %.o: %.c ${HEADERS}
 	@echo "[+] compiling $<..."
-	@i386-elf-gcc -ffreestanding -c $< -o $@
+	@i386-elf-gcc -ffreestanding -c $< -o $@ -I$(DRIVERS) -I$(KERNEL)
 
 %.o: %.asm
 	@echo "[+] assembling $<..."
@@ -41,3 +41,4 @@ clean:
 	@rm -fr *.o *.bin *.elf
 	@rm -fr $(KERNEL)/*.o $(KERNEL)/*.bin
 	@rm -fr $(BOOT)/*.o $(BOOT)/*.bin
+	@echo "[+] done!"
