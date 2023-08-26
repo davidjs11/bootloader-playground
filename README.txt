@@ -14,7 +14,7 @@ environment
 
 ================= stages ==================
 
-at the moment, there are available four 
+at the moment, there are available five 
 stages of the project
 
 - 01-bootable-helloworld
@@ -34,16 +34,12 @@ stages of the project
     program in C, by compiling a simple test
     and linking it with the bootloader.
 
+- 05-the-kernel
+    just the kernel.
 
 i decided to separate them in order to show
 the different stages the project has gone
 through.
-
-- extra: c-test
-    just testing how C code, such as variables,
-    function calls and pointers are compiled
-    into machine code, using objdump and
-    ndisasm.
 
 
 =============== resources =================
