@@ -1,5 +1,6 @@
 /// kernel.c ////////////////////////////////
 #include "ports.h"
+#include "screen.h"
 
 // print a string into the vga text buffer
 void print_vga(char *buffer, const char *val, const char color)
@@ -16,18 +17,14 @@ void print_vga(char *buffer, const char *val, const char color)
 
 void main()
 {
-    // get current VGA cursor position
-    int position;
-    port_byteOut(0x3D4, 14);        // request cursor high byte
-    position = port_byteIn(0x3D5) << 8;
-
-    port_byteOut(0x3D4, 15);        // request cursor low byte
-    position |= port_byteIn(0x3D5); 
-
-    position *= 2;                  // offset the value
-
-
     // display message into the screen
     char *videoMemory = (char *) 0xB8000;
-    print_vga(videoMemory+position, "kernel.c loaded successfully", 0x04);
+    print_vga(videoMemory, "kernel.c loaded successfully", 0x04);
+
+    // make the kernel scream
+    screen_setCursor(0,0);
+    for(int i=0; i<MAX_ROWS*MAX_COLS; i++) {
+        print_vga(videoMemory+screen_getCursor(), "A", 0x04);
+        screen_setCursorOffset(screen_getCursor()+2);
+    }
 }

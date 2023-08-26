@@ -1,9 +1,7 @@
 #ifndef PORTS
 #define PORTS
 
-/// type definition /////////////////////////
-typedef unsigned char byte;
-typedef unsigned short word;
+#include "utils.h"
 
 /// port input //////////////////////////////
 byte port_byteIn(word port);

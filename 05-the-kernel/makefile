@@ -40,5 +40,6 @@ clean:
 	@echo "[+] cleaning..."
 	@rm -fr *.o *.bin *.elf
 	@rm -fr $(KERNEL)/*.o $(KERNEL)/*.bin
+	@rm -fr $(DRIVERS)/*.o $(DRIVERS)/*.bin
 	@rm -fr $(BOOT)/*.o $(BOOT)/*.bin
 	@echo "[+] done!"

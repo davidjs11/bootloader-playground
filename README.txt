@@ -8,7 +8,7 @@ x86 processors.
 environment
     languages: assembly and C
     assembler: nasm
-    compiler/linker: custom builds for i386
+    compiler/linker: custom gcc/ld for i386
     machine: qemu
 
 
@@ -40,6 +40,15 @@ stages of the project
 i decided to separate them in order to show
 the different stages the project has gone
 through.
+
+============= current status ==============
+
+the ""kernel"" program is in a primitive state.
+it doesn't do barely anything relevant.
+(well, it screams...)
+
+drivers:
+    - ports.c: basic I/O operations with ports.
 
 
 =============== resources =================
