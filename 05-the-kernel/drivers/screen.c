@@ -2,22 +2,22 @@
 #include "ports.h"
 
 // private function declaration
-word screen_getOffset(byte row, byte col);
-byte screen_getOffsetRow(word offset);
-byte screen_getOffsetCol(word offset);
-word screen_getCursorOffset();
-void screen_setCursorOffset(word offset);
+u16 screen_getOffset(u8 row, u8 col);
+u8 screen_getOffsetRow(u16 offset);
+u8 screen_getOffsetCol(u16 offset);
+u16 screen_getCursorOffset();
+void screen_setCursorOffset(u16 offset);
 
 
 /// public functions //////////////////////////////////
 
 // print at a given position
-void screen_printAt(char *val, byte row, byte col, byte color)
+void screen_printAt(char *val, u8 row, u8 col, u8 color)
 {
     char *videoMemory = (char *) VIDEO_ADDRESS;
 
     // set the cursor at given offset
-    word offset = row*MAX_COLS + col;
+    u16 offset = row*MAX_COLS + col;
     offset *= 2;
 
     // print the string
@@ -36,12 +36,12 @@ void screen_printAt(char *val, byte row, byte col, byte color)
 }
 
 // print at the current cursor
-void screen_print(char *val, byte color)
+void screen_print(char *val, u8 color)
 {
     char *videoMemory = (char *) VIDEO_ADDRESS;
 
     // get the current cursor offset
-    word offset = screen_getCursorOffset();
+    u16 offset = screen_getCursorOffset();
 
     // print the string
     while (*val) {
@@ -62,7 +62,7 @@ void screen_print(char *val, byte color)
 }
 
 // move the cursor to a given position
-void screen_moveCursor(byte row, byte col)
+void screen_moveCursor(u8 row, u8 col)
 {
     screen_setCursorOffset(screen_getOffset(row, col));
 }
@@ -82,7 +82,7 @@ void screen_clear()
     screen_setCursorOffset(0);
 }
 
-void screen_scroll(byte rows)
+void screen_scroll(u8 rows)
 {
     // copy the memory block 'rows' times back
     char *videoMemory = (char *) 0xB8000;
@@ -106,31 +106,31 @@ void screen_scroll(byte rows)
 /// private functions ///////////////////////
 
 // get the offset of a given position
-word screen_getOffset(byte row, byte col)
+u16 screen_getOffset(u8 row, u8 col)
 {
     return (row * MAX_COLS + col) * 2;
 }
 
-byte screen_getOffsetRow(word offset)
+u8 screen_getOffsetRow(u16 offset)
 {
     return offset/(2*MAX_COLS);
 }
 
-byte screen_getOffsetCol(word offset)
+u8 screen_getOffsetCol(u16 offset)
 {
     return (offset-(screen_getOffsetRow(offset)*2*MAX_COLS))/2;
 }
 
 // get the cursor offset
-word screen_getCursorOffset()
+u16 screen_getCursorOffset()
 {
-    word offset;
+    u16 offset;
 
-    // cursor high byte
+    // cursor high u8
     port_byteOut(VGA_REG_INDEX, 0x0E);
     offset = port_byteIn(VGA_REG_DATA) << 8;
 
-    // cursor low byte
+    // cursor low u8
     port_byteOut(VGA_REG_INDEX, 0x0F);
     offset |= port_byteIn(VGA_REG_DATA);
 
@@ -138,15 +138,15 @@ word screen_getCursorOffset()
 }
 
 // set the cursor offset
-void screen_setCursorOffset(word offset)
+void screen_setCursorOffset(u16 offset)
 {
     offset /= 2;
 
-    // cursor high byte
+    // cursor high u8
     port_byteOut(VGA_REG_INDEX, 0x0E);
     port_byteOut(VGA_REG_DATA, offset>>8);
 
-    // cursor low byte
+    // cursor low u8
     port_byteOut(VGA_REG_INDEX, 0x0F);
     port_byteOut(VGA_REG_DATA, offset);
 }

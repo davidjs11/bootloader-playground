@@ -1,9 +1,9 @@
 #include "ports.h"
 
 /// port input //////////////////////////////
-byte port_byteIn(word port)
+u8 port_byteIn(u16 port)
 {
-    byte result;
+    u8 result;
 
     // save input from port 'edx' into 'eax'
     __asm__("in %%dx, %%al" : "=a" (result) : "d" (port));
@@ -11,9 +11,9 @@ byte port_byteIn(word port)
     return result;
 }
 
-word port_wordIn(word port)
+u16 port_wordIn(u16 port)
 {
-    word result;
+    u16 result;
 
     // save input from port 'edx' into 'eax'
     __asm__("in %%dx, %%ax" : "=a" (result) : "d" (port));
@@ -22,13 +22,13 @@ word port_wordIn(word port)
 }
 
 /// port output /////////////////////////////
-void port_byteOut(word port, byte value)
+void port_byteOut(u16 port, u8 value)
 {
     // send value of 'eax' to port 'edx'
     __asm__("out %%al, %%dx" : : "a" (value), "d" (port));
 }
 
-void port_wordOut(word port, word value)
+void port_wordOut(u16 port, u16 value)
 {
     // send value of 'eax' to port 'edx'
     __asm__("out %%ax, %%dx" : : "a" (value), "d" (port));

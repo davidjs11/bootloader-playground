@@ -1,14 +1,14 @@
 #ifndef PORTS
 #define PORTS
 
-#include "utils.h"
+#include "util.h"
 
 /// port input //////////////////////////////
-byte port_byteIn(word port);
-word port_wordIn(word port);
+u8 port_byteIn(u16 port);
+u16 port_wordIn(u16 port);
 
 /// port output /////////////////////////////
-void port_byteOut(word port, byte value);
-void port_wordOut(word port, word value);
+void port_byteOut(u16 port, u8 value);
+void port_wordOut(u16 port, u16 value);
 
 #endif  // PORTS

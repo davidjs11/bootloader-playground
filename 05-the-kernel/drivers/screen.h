@@ -1,7 +1,7 @@
 #ifndef SCREEN
 #define SCREEN
 
-#include "utils.h"
+#include "util.h"
 
 /// constants ///////////////////////////////
 #define VIDEO_ADDRESS   0xB8000
@@ -16,11 +16,11 @@
 
 /// functions ///////////////////////////////
 
-void screen_printAt(char *val, byte row, byte col, byte color);
-void screen_print(char *val, byte color);
-void screen_moveCursor(byte row, byte col);
+void screen_printAt(char *val, u8 row, u8 col, u8 color);
+void screen_print(char *val, u8 color);
+void screen_moveCursor(u8 row, u8 col);
 void screen_clear();
-void screen_scroll(byte rows);
+void screen_scroll(u8 rows);
 
 
 #endif  // SCREEN
