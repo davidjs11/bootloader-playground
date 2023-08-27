@@ -16,10 +16,11 @@
 
 /// functions ///////////////////////////////
 
-// get/set the current cursor position
-word screen_getCursor();
-void screen_setCursor(byte row, byte col);
-void screen_setCursorOffset(word offset);
+void screen_printAt(char *val, byte row, byte col, byte color);
+void screen_print(char *val, byte color);
+void screen_moveCursor(byte row, byte col);
+void screen_clear();
+void screen_scroll(byte rows);
 
 
 #endif  // SCREEN

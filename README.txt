@@ -45,10 +45,10 @@ through.
 
 the ""kernel"" program is in a primitive state.
 it doesn't do barely anything relevant.
-(well, it screams...)
 
 drivers:
     - ports.c: basic I/O operations with ports.
+    - screen.c: VGA text mode functions.
 
 
 =============== resources =================
