@@ -7,8 +7,12 @@
 
 #include "types.h"
 
-/// functions ///////////////////////////////
+/// memory blocks ///////////////////////////
 void memcpy(void *dest, void *src, unsigned int n);
 void memset(void *dest, char value, unsigned int n);
+
+/// strings /////////////////////////////////
+char *str_reverse(char *str);
+char *itoa(int val, char *str);
 
 #endif  // UTILS_H

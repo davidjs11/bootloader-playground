@@ -35,7 +35,8 @@ stages of the project
     and linking it with the bootloader.
 
 - 05-the-kernel
-    just the kernel.
+    just the kernel. now with interrupt
+    handling!
 
 i decided to separate them in order to show
 the different stages the project has gone
@@ -58,6 +59,9 @@ https://www.cs.bham.ac.uk//~exr/lectures/opsys/10_11/lectures/os-dev.pdf
 
 OSDev Wiki
 https://wiki.osdev.org/
+
+Roll your own toy UNIX-clone OS (James Molloy)
+http://www.jamesmolloy.co.uk/tutorial_html/
 
 funny video
 https://www.youtube.com/watch?v=2Ufge60nqoc

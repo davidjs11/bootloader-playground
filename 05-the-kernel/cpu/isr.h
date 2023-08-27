@@ -4,7 +4,6 @@
 
 #include "util.h"
 #include "idt.h"
-#include "screen.h"
 
 /// declare CPU-reserver ISR ////////////////
 extern void isr0();
