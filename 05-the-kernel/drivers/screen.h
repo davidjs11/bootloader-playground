@@ -1,7 +1,8 @@
-#ifndef SCREEN
-#define SCREEN
+#ifndef SCREEN_H
+#define SCREEN_H
 
 #include "util.h"
+#include "types.h"
 
 /// constants ///////////////////////////////
 #define VIDEO_ADDRESS   0xB8000
@@ -23,4 +24,4 @@ void screen_clear();
 void screen_scroll(u8 rows);
 
 
-#endif  // SCREEN
+#endif  // SCREEN_H

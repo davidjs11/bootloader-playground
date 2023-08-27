@@ -3,10 +3,11 @@ HOME 		= .
 BOOT		= $(HOME)/boot
 KERNEL		= $(HOME)/kernel
 DRIVERS		= $(HOME)/drivers
+CPU			= $(HOME)/cpu
 
-C_SOURCES	= $(wildcard $(KERNEL)/*.c $(DRIVERS)/*.c)
-HEADERS		= $(wildcard kernel/*.h drivers/*.h)
-OBJ			= ${C_SOURCES:.c=.o}
+C_SOURCES	= $(wildcard $(KERNEL)/*.c $(DRIVERS)/*.c $(CPU)/*.c)
+HEADERS		= $(wildcard $(KERNEL)/*.h $(DRIVERS)/*.h $(CPU)/*.h)
+OBJ			= ${C_SOURCES:.c=.o $(CPU)/interrupt.o}
 
 
 ##### bootable image ########################
@@ -31,7 +32,7 @@ run: all
 ##### general rules #########################
 %.o: %.c ${HEADERS}
 	@echo "[+] compiling $<..."
-	@i386-elf-gcc -ffreestanding -c $< -o $@ -I$(DRIVERS) -I$(KERNEL)
+	@i386-elf-gcc -ffreestanding -c $< -o $@ -I$(KERNEL) -I$(DRIVERS) -I$(CPU)
 
 %.o: %.asm
 	@echo "[+] assembling $<..."
@@ -49,4 +50,5 @@ clean:
 	@rm -fr $(KERNEL)/*.o $(KERNEL)/*.bin
 	@rm -fr $(DRIVERS)/*.o $(DRIVERS)/*.bin
 	@rm -fr $(BOOT)/*.o $(BOOT)/*.bin
+	@rm -fr $(CPU)/*.o $(CPU)/*.bin
 	@echo "[+] done!"
