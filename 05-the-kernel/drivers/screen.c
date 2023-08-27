@@ -84,8 +84,22 @@ void screen_clear()
 
 void screen_scroll(byte rows)
 {
+    // copy the memory block 'rows' times back
     char *videoMemory = (char *) 0xB8000;
-    // to-do
+    memcpy(
+        videoMemory,
+        videoMemory+rows*2*MAX_COLS,
+        (MAX_ROWS-rows)*2*MAX_COLS
+    );
+
+    // clear the last 'rows' lines
+    for(int i=(MAX_ROWS-rows)*MAX_COLS; i<MAX_ROWS*MAX_COLS; i++) {
+        videoMemory[i*2] = ' ';
+        videoMemory[i*2+1] = 0x0F;
+    }
+
+    // set cursor at the beginning of the last line
+    screen_setCursorOffset((MAX_ROWS-rows)*2*MAX_COLS);
 }
 
 
