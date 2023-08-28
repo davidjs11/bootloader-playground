@@ -5,6 +5,34 @@
 #include "util.h"
 #include "idt.h"
 
+/// macro constants /////////////////////////
+// PIC ports
+#define PIC1        0x20    // master
+#define PIC2        0xA0    // slave
+#define PIC1_CMD    PIC1    // master command
+#define PIC2_CMD    PIC2    // slave  command
+#define PIC1_DATA   PIC1+1  // master data
+#define PIC2_DATA   PIC2+1  // slave  data
+
+// IRQ definitions
+#define IRQ0        32
+#define IRQ1        33
+#define IRQ2        34
+#define IRQ3        35
+#define IRQ4        36
+#define IRQ5        37
+#define IRQ6        38
+#define IRQ7        39
+#define IRQ8        40
+#define IRQ9        41
+#define IRQ10       42
+#define IRQ11       43
+#define IRQ12       44
+#define IRQ13       45
+#define IRQ14       46
+#define IRQ15       47
+
+
 /// declare CPU-reserver ISR ////////////////
 extern void isr0();
 extern void isr1();
@@ -38,9 +66,27 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
+extern void irq0();
+extern void irq1();
+extern void irq2();
+extern void irq3();
+extern void irq4();
+extern void irq5();
+extern void irq6();
+extern void irq7();
+extern void irq8();
+extern void irq9();
+extern void irq10();
+extern void irq11();
+extern void irq12();
+extern void irq13();
+extern void irq14();
+extern void irq15();
 
-/// registers struct ////////////////////////
 
+/// structs /////////////////////////////////
+
+// registers (pushed to stack on an interrupt)
 typedef struct {
     u32 ds;                                     // data segment selector
     u32 edi, esi, ebp, esp, ebx, edx, ecx, eax; // pusha 
@@ -48,9 +94,18 @@ typedef struct {
     u32 eip, cs, eflags, useresp, ss;           // pushed by processor
 } registers_t;
 
+// pointer to an isr function
+typedef void (*isr_t)(registers_t);
+
 
 /// functions ///////////////////////////////
+
+// ISR and IRQ global handlers
 void isr_handler(registers_t regs);
+void irq_handler(registers_t regs);
+
+// register a callback function for each interrupt handler
+void register_interrupt_handler(u8 n, isr_t handler);
 
 
 #endif  // ISR_H

@@ -28,6 +28,7 @@ $(KERNEL)/kernel.bin:\
 run: all
 	@qemu-system-i386 -fda os_image.bin
 
+test: all clean
 
 ##### general rules #########################
 %.o: %.c ${HEADERS}

@@ -1,4 +1,5 @@
 /// idt.c ///////////////////////////////////
+#include "ports.h"
 #include "idt.h"
 #include "isr.h"
 
@@ -18,7 +19,21 @@ void idt_init()
     idt_ptr.base  = (u32) &idt_entries;
     idt_ptr.limit = IDT_ENTRIES * sizeof(idt_entry_t) - 1;
 
-    // set entries in the IDT
+    // initialize the PIC
+    port_byteOut(0x20, 0x11);   // initialize master PIC
+    port_byteOut(0xA0, 0x11);   // initialize slave PIC
+
+    // map IRQ table
+    port_byteOut(0x21, 0x20);   // master PIC vector offset
+    port_byteOut(0xA1, 0x28);   // slave PIC vector offset
+    port_byteOut(0x21, 0x04);   // master! there's a slave at IRQ2
+    port_byteOut(0xA1, 0x02);   // slave! you have cascade identity 
+
+    // tell them to use 8086 mode
+    port_byteOut(0x20, 0x01);
+    port_byteOut(0xA0, 0x01);
+
+    // set entries in the IDT (ISR and IRQ)
     idt_set_entry(0,  (u32) isr0,  0x08, 0x8E);
     idt_set_entry(1,  (u32) isr1,  0x08, 0x8E);
     idt_set_entry(2,  (u32) isr2,  0x08, 0x8E);
@@ -28,7 +43,7 @@ void idt_init()
     idt_set_entry(6,  (u32) isr6,  0x08, 0x8E);
     idt_set_entry(7,  (u32) isr7,  0x08, 0x8E);
     idt_set_entry(8,  (u32) isr8,  0x08, 0x8E);
-    idt_set_entry(9,  (u32) isr9, 0x08, 0x8E);
+    idt_set_entry(9,  (u32) isr9,  0x08, 0x8E);
     idt_set_entry(10, (u32) isr10, 0x08, 0x8E);
     idt_set_entry(11, (u32) isr11, 0x08, 0x8E);
     idt_set_entry(12, (u32) isr12, 0x08, 0x8E);
@@ -51,6 +66,22 @@ void idt_init()
     idt_set_entry(29, (u32) isr29, 0x08, 0x8E);
     idt_set_entry(30, (u32) isr30, 0x08, 0x8E);
     idt_set_entry(31, (u32) isr31, 0x08, 0x8E);
+    idt_set_entry(32, (u32) irq0,  0x08, 0x8E);
+    idt_set_entry(33, (u32) irq1,  0x08, 0x8E);
+    idt_set_entry(34, (u32) irq2,  0x08, 0x8E);
+    idt_set_entry(35, (u32) irq3,  0x08, 0x8E);
+    idt_set_entry(36, (u32) irq4,  0x08, 0x8E);
+    idt_set_entry(37, (u32) irq5,  0x08, 0x8E);
+    idt_set_entry(38, (u32) irq6,  0x08, 0x8E);
+    idt_set_entry(39, (u32) irq7,  0x08, 0x8E);
+    idt_set_entry(40, (u32) irq8,  0x08, 0x8E);
+    idt_set_entry(41, (u32) irq9,  0x08, 0x8E);
+    idt_set_entry(42, (u32) irq10, 0x08, 0x8E);
+    idt_set_entry(43, (u32) irq11, 0x08, 0x8E);
+    idt_set_entry(44, (u32) irq12, 0x08, 0x8E);
+    idt_set_entry(45, (u32) irq13, 0x08, 0x8E);
+    idt_set_entry(46, (u32) irq14, 0x08, 0x8E);
+    idt_set_entry(47, (u32) irq15, 0x08, 0x8E);
 
     // load/refresh the IDT
     __asm__ __volatile__("lidtl (%0)" : : "r" (&idt_ptr));
