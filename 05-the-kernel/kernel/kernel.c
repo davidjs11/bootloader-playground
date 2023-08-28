@@ -10,19 +10,15 @@
 
 void main()
 {
-    char buffer[100];
+    // init interrupt stuff
     idt_init();
+    __asm__ __volatile__ ("sti");
 
     // kernel loaded
     screen_clear();
-    screen_print("kernel loaded succesfully!\n", 0x0A);
-
-    // interrupt test
-    screen_print("\n\ninterruption test:\n", 0x0A);
-
-    __asm__ __volatile__ ("sti");
+    screen_print("\nkernel loaded succesfully!\n", 0x0A);
 
     // timer and keyboard test
-    timer_init(1);
+    timer_init(50);
     keyboard_init();
 }
