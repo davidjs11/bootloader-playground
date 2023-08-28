@@ -5,6 +5,7 @@
 #include "util.h"
 #include "idt.h"
 
+
 /// macro constants /////////////////////////
 // PIC ports
 #define PIC1        0x20    // master

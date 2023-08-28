@@ -1,6 +1,6 @@
 ; --- interrupt.asm -------------------------
 ; defines the interrupt service routines (ISR)
-
+; and interrupt requests (IRQ)
 [extern isr_handler]
 [extern irq_handler]
 
@@ -50,13 +50,13 @@ irq_common_stub:
     call irq_handler
 
     ; restore state
-    pop eax         ; reload original data segment descriptor 
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
+    pop ebx         ; reload original data segment descriptor 
+    mov ds, bx
+    mov es, bx
+    mov fs, bx
+    mov gs, bx
     popa            ; reload original registers
-    add esp, 8      ; clean pushed error code and ISR index
+    add esp, 8      ; clean pushed error code and IRQ index
     sti             ; set interrupt flag
     iret            ; return from interrupt
     
@@ -136,7 +136,7 @@ global irq15
     [GLOBAL irq%1]
     irq%1:
         cli                     ; disable interrupts
-        push byte 0x00          ; dummy error code
+        push byte %1            ; dummy error code
         push byte %2            ; push irq index
         jmp irq_common_stub     ; go to the irq common handler
 %endmacro

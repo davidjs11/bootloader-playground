@@ -15,10 +15,6 @@ idt_ptr_t   idt_ptr;
 // initialize the IDT
 void idt_init()
 {
-    // set the pointer to the IDT array
-    idt_ptr.base  = (u32) &idt_entries;
-    idt_ptr.limit = IDT_ENTRIES * sizeof(idt_entry_t) - 1;
-
     // initialize the PIC
     port_byteOut(0x20, 0x11);   // initialize master PIC
     port_byteOut(0xA0, 0x11);   // initialize slave PIC
@@ -30,8 +26,12 @@ void idt_init()
     port_byteOut(0xA1, 0x02);   // slave! you have cascade identity 
 
     // tell them to use 8086 mode
-    port_byteOut(0x20, 0x01);
-    port_byteOut(0xA0, 0x01);
+    port_byteOut(0x21, 0x01);
+    port_byteOut(0xA1, 0x01);
+
+    port_byteOut(0x21, 0x00);
+    port_byteOut(0xA1, 0x00);
+
 
     // set entries in the IDT (ISR and IRQ)
     idt_set_entry(0,  (u32) isr0,  0x08, 0x8E);
@@ -82,6 +82,10 @@ void idt_init()
     idt_set_entry(45, (u32) irq13, 0x08, 0x8E);
     idt_set_entry(46, (u32) irq14, 0x08, 0x8E);
     idt_set_entry(47, (u32) irq15, 0x08, 0x8E);
+
+    // set the pointer to the IDT array
+    idt_ptr.base  = (u32) &idt_entries;
+    idt_ptr.limit = IDT_ENTRIES * sizeof(idt_entry_t) - 1;
 
     // load/refresh the IDT
     __asm__ __volatile__("lidtl (%0)" : : "r" (&idt_ptr));
