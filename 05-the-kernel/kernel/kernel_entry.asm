@@ -4,5 +4,5 @@
 
 [bits 32]       ; set 32-bit mode
 [extern main]   ; use main declared in kernel.c
-call main        
+call main       ; jump to main function 
 jmp $

@@ -12,76 +12,51 @@ void setCursorOffset(u16 offset);
 /// public functions //////////////////////////////////
 
 // print at a given position
-void screen_printAt(char *val, u8 row, u8 col, u8 color)
+void screen_printAt(char *str, u8 row, u8 col, u8 color)
 {
-    char *videoMemory = (char *) VIDEO_ADDRESS;
+    u16 offset = getOffset(row, col);
 
-    // set the cursor at given offset
-    u16 offset = row*MAX_COLS + col;
-    offset *= 2;
+    while(*str) {
 
-    // print the string
-    while (*val) {
-        // print new line
-        if (*val == '\n') {
-            offset = getOffset(
-                getOffsetRow(offset)+1, 0);
-            val++;
-
-            if (getOffsetRow(offset) == MAX_ROWS) {
-                screen_scroll(20);
-            }
+        // new line
+        if (*str == '\n') {
+            offset = getOffset(getOffsetRow(offset)+1, 0);
         }
+
+        // normal line
         else {
-            videoMemory[offset++] = *(val++);
-            videoMemory[offset++] = color;
+            *((char *) VIDEO_ADDRESS + offset++) = *str;
+            *((char *) VIDEO_ADDRESS + offset++) = color;
         }
+
+        // scroll when screen is full
+        while(offset >= MAX_ROWS*MAX_COLS*2) {
+
+            // put lines back
+            memcpy(
+                (char *) VIDEO_ADDRESS,
+                (char *) VIDEO_ADDRESS+2*MAX_COLS,
+                (MAX_ROWS-1)*MAX_COLS*2
+            );
+
+            // delete last line
+            memset(
+                (char *)VIDEO_ADDRESS+2*MAX_COLS*(MAX_ROWS-1),
+                0,
+                2*MAX_COLS
+            );
+
+            // set offset one row back
+            offset -= MAX_COLS*2;
+        }
+
+        str++;  // increment pointer
     }
-}
-
-// print at the current cursor
-/*
-void screen_print(char *val, u8 color)
-{
-    char *videoMemory = (char *) VIDEO_ADDRESS;
-
-    // get the current cursor offset
-    u16 offset = getCursorOffset();
-
-    // print the string
-    while (*val) {
-        // print new line
-        if (*val == '\n') {
-            offset = getOffset(
-                getOffsetRow(offset)+1, 0);
-            val++;
-
-            if (offset >= MAX_ROWS*MAX_COLS*2) {
-                int i;
-                for(i=1; i<MAX_ROWS; i++)
-                    memcpy(getOffset(0, i) + videoMemory,
-                           getOffset(0, i-1) + videoMemory,
-                           MAX_COLS * 2);
-
-                char *last_line;
-                last_line=getOffset(0, MAX_ROWS-1)+videoMemory;
-                for(i=0; i<MAX_COLS*2; i++) last_line[i] = 0;
-
-                offset -= 2*MAX_COLS;
-            }
-            
-        }
-        else {
-            videoMemory[offset++] = *(val++);
-            videoMemory[offset++] = color;
-        }
-    }
-
-    // set the current cursor offset
+    
     setCursorOffset(offset);
 }
-*/
 
+// print at the current cursor position
 void screen_print(char *str, u8 color)
 {
     u16 offset = getCursorOffset();
@@ -101,6 +76,7 @@ void screen_print(char *str, u8 color)
 
         // scroll when screen is full
         while(offset >= MAX_ROWS*MAX_COLS*2) {
+
             // put lines back
             memcpy(
                 (char *) VIDEO_ADDRESS,
@@ -149,6 +125,7 @@ void screen_clear()
 void screen_scroll(u8 rows)
 {
     for (u8 i=0; i<rows; i++) {
+
         // put lines back
         memcpy(
             (char *) VIDEO_ADDRESS,

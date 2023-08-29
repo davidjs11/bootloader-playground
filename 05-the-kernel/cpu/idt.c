@@ -1,4 +1,5 @@
 /// idt.c ///////////////////////////////////
+
 #include "ports.h"
 #include "idt.h"
 #include "isr.h"
@@ -89,6 +90,7 @@ void idt_init()
 
     // load/refresh the IDT
     __asm__ __volatile__("lidtl (%0)" : : "r" (&idt_ptr));
+    __asm__ __volatile__ ("sti");
 }
 
 // set an entry in the IDT

@@ -1,11 +1,13 @@
 ; --- interrupt.asm -------------------------
 ; defines the interrupt service routines (ISR)
 ; and interrupt requests (IRQ)
+
 [extern isr_handler]
 [extern irq_handler]
 
 
 ; --- low-level ISR handler -----------------
+
 isr_common_stub:
 
     ; save CPU state
@@ -34,6 +36,7 @@ isr_common_stub:
 
 
 ; --- low-level IRQ handler -----------------
+
 irq_common_stub:
 
     ; save CPU state
@@ -62,6 +65,7 @@ irq_common_stub:
     
 
 ; --- ISR & IRQ declaration -----------------
+
 global isr0
 global isr1
 global isr2
@@ -113,6 +117,7 @@ global irq15
 
 
 ; --- macros for ISR definitions ------------
+
 %macro NO_ERRCODE 1
     [GLOBAL isr%1]
     isr%1:
@@ -131,7 +136,8 @@ global irq15
 %endmacro
 
 
-; --- macros for ISR definitions ------------
+; --- macro for ISR definitions -------------
+
 %macro IRQ 2
     [GLOBAL irq%1]
     irq%1:
@@ -143,6 +149,7 @@ global irq15
 
 
 ; --- call macro for each ISR ---------------
+
 NO_ERRCODE  0
 NO_ERRCODE  1
 NO_ERRCODE  2
@@ -178,19 +185,20 @@ NO_ERRCODE  31
 
 
 ; --- call macro for each IRQ ---------------
-IRQ     0,      32
-IRQ     1,      33
-IRQ     2,      34
-IRQ     3,      35
-IRQ     4,      36
-IRQ     5,      37
-IRQ     6,      38
-IRQ     7,      39
-IRQ     8,      40
-IRQ     9,      41
-IRQ     10,     42
-IRQ     11,     43
-IRQ     12,     44
-IRQ     13,     45
-IRQ     14,     46
-IRQ     15,     47
+
+IRQ 0,  32
+IRQ 1,  33
+IRQ 2,  34
+IRQ 3,  35
+IRQ 4,  36
+IRQ 5,  37
+IRQ 6,  38
+IRQ 7,  39
+IRQ 8,  40
+IRQ 9,  41
+IRQ 10, 42
+IRQ 11, 43
+IRQ 12, 44
+IRQ 13, 45
+IRQ 14, 46
+IRQ 15, 47

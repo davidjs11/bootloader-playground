@@ -1,15 +1,17 @@
 /// isr.c ///////////////////////////////////
+
 #include "isr.h"
 #include "ports.h"
 #include "screen.h"
 
+// array of function pointers for each interrupt
 isr_t interrupt_handlers[256];
 
 // handle interrupt service routines
 void isr_handler(registers_t regs)
 {
     char buffer[16];
-    screen_print("got a new interrupt! code: ", 0x0A);
+    screen_print("new CPU interrupt! code: ", 0x0A);
     screen_print(itoa(regs.int_no, buffer), 0x0A);
     screen_print("\n", 0x0A);
 }

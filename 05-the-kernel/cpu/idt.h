@@ -1,4 +1,5 @@
 /// irt.h ///////////////////////////////////
+
 #ifndef IDT_H
 #define IDT_H
 
@@ -9,6 +10,7 @@
 
 
 /// IDT structures //////////////////////////
+
 // struct that defines an entry in the IDT
 typedef struct {
     u16 base_low;   // lower 16 bits of address to jump to
@@ -26,10 +28,13 @@ typedef struct {
     u32 base;       // address of the first entry
 } __attribute__((packed)) idt_ptr_t;
 
+// IDT and pointer to IDT
 extern idt_entry_t idt_entries[IDT_ENTRIES];
 extern idt_ptr_t   idt_ptr;
 
+
 /// functions ///////////////////////////////
+
 void idt_init();
 void idt_set_entry(u8 index, u32 base, u16 sel, u8 flags);
 

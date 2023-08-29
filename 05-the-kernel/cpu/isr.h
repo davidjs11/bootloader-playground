@@ -1,4 +1,5 @@
 /// isr.h ///////////////////////////////////
+
 #ifndef ISR_H
 #define ISR_H
 
@@ -7,6 +8,7 @@
 
 
 /// macro constants /////////////////////////
+
 // PIC ports
 #define PIC1        0x20    // master
 #define PIC2        0xA0    // slave
@@ -34,8 +36,9 @@
 #define IRQ15       47
 
 
-/// declare CPU-reserver ISR ////////////////
-extern void isr0();
+/// declare functions for interrupts ////////
+
+extern void isr0();     // ISRs
 extern void isr1();
 extern void isr2();
 extern void isr3();
@@ -67,7 +70,7 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
-extern void irq0();
+extern void irq0();     // IRQs
 extern void irq1();
 extern void irq2();
 extern void irq3();
