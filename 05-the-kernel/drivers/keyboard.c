@@ -7,18 +7,66 @@
 #include "ports.h"
 
 
-/* TO-DO */
+/// constants ///////////////////////////////
+
+#define BACKSPACE   0x0E
+#define ENTER       0x1C
+#define MAX_SC      57
+
+const char *sc_name[] = {
+    "error", "esc", "1", "2", "3", "4", "5", "6", 
+    "7", "8", "9", "0", "-", "=", "backspace",
+    "tab", "q", "w", "e", "r", "t", "y", "u", "i",
+    "o", "p", "[", "]", "enter", "lctrl", "a", "s",
+    "d", "f", "g", "h", "j", "k", "l", ";", "'",
+    "`", "lshift", "\\", "z", "x", "c", "v", "b",
+    "n", "m", ",", ".", "/", "rshift", "keypad *",
+    "lalt", "spacebar"};
+
+const char sc_ascii[] = {
+    '?', '?', '1', '2', '3', '4', '5', '6',     
+    '7', '8', '9', '0', '-', '=', '?', '?',
+    'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I',
+    'O', 'P', '[', ']', '?', '?', 'A', 'S',
+    'D', 'F', 'G', 'H', 'J', 'K', 'L', ';',
+    '\'','`', '?', '\\','Z', 'X', 'C', 'V',
+    'B', 'N', 'M', ',', '.', '/', '?', '?',
+    '?', ' '
+};
+
+char keybuffer[256];
+
+
+/// functions ///////////////////////////////
 
 void keyboard_callback(registers_t regs)
 {
-    screen_print("keyboard: ", 0x0A);
+    // get scancode
     u8 scancode = port_byteIn(0x60);
-    char sc_ascii[16];
+    itoa(scancode, (char *) sc_ascii);
 
-    itoa(scancode, sc_ascii);
+    if (scancode > MAX_SC) return;
 
-    screen_print(sc_ascii, 0x0A);
-    screen_print("\n", 0x04);
+    if (scancode == BACKSPACE) {
+        str_backspace(keybuffer);
+    }
+
+    else if (scancode == ENTER) {
+        screen_print("\n", 0x0A);
+        screen_print(keybuffer, 0x0A);
+        screen_print("\n", 0x0A);
+        memset(keybuffer, 0x00, 256);
+    }
+
+    else {
+        // insert letter into buffer
+        char letter = sc_ascii[scancode];
+        keybuffer[str_len(keybuffer)] = letter;
+
+        // print letter
+        char str[2] = {letter, 0x00};
+        screen_print(str, 0x0A);
+    }
 }
 
 void keyboard_init()

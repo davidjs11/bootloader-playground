@@ -22,6 +22,9 @@ void memset(void *dest, char value, unsigned int n);
 /// strings /////////////////////////////////
 char *str_reverse(char *str);
 char *itoa(int val, char *str);
+int str_len(const char *str);
+char *str_append(char *a, char *b);
+char *str_backspace(char *str);
 
 
 #endif  // UTILS_H

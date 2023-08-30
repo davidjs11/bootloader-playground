@@ -39,11 +39,35 @@ char *itoa(int value, char *str)
     int i, sign;
     if ((sign = value) < 0) value = -value;
 
-    for(i = 0; value>0; value/=10)
+    for (i=0; value>0; value/=10)
         str[i++] = value % 10 + '0';
 
     if (sign < 0) str[i++] = '-';
     str[i] = '\0';
 
     return str_reverse(str);
+}
+
+// get the lenght of a string
+int str_len(const char *str)
+{
+    int len = 0;
+    while (str[len]) len++;
+    return len;
+}
+
+// append two strings
+char *str_append(char *a, char *b)
+{
+    int i = str_len(a);
+    while (*b) a[i++] = *(b++);
+
+    return a;
+}
+
+// delete last character
+char *str_backspace(char *str)
+{
+    str[str_len(str)-1] = 0;
+    return str;
 }
