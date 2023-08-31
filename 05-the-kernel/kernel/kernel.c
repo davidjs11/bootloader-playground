@@ -18,7 +18,6 @@ void main()
     // init stuff
     idt_init();
     keyboard_init();
-
     screen_clear();
 
     // init command line

@@ -54,6 +54,15 @@ void keyboard_callback(registers_t regs)
 
     else if (scancode == ENTER) {
         screen_print("\n> ", 0x0A);
+
+        // check command
+        if (!str_cmp(keybuffer, "HALT")) {
+            screen_clear();
+            screen_print("SHUTING DOWN CPU... SEE YOU SOON!", 0x0A);
+            __asm__("hlt");
+        }
+
+        // reset keybuffer 
         memset(keybuffer, 0x00, 256);
     }
 

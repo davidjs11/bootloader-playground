@@ -25,6 +25,7 @@ char *itoa(int val, char *str);
 int str_len(const char *str);
 char *str_append(char *a, char *b);
 char *str_backspace(char *str);
+int str_cmp(const char *a, const char *b);
 
 
 #endif  // UTILS_H

@@ -71,3 +71,15 @@ char *str_backspace(char *str)
     str[str_len(str)-1] = 0;
     return str;
 }
+
+// compare two strings
+int str_cmp(const char *a, const char *b)
+{
+    while (*a && *b) {
+        if (*a != *b) break;
+        a++;
+        b++;
+    }
+
+    return (*(a) - *(b));
+}
