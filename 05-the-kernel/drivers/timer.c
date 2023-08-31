@@ -8,15 +8,34 @@
 u32 tick = 0;
 char buffer[16];
 
-static void timer_callback(registers_t regs)
+// function called by timer interrupt handler
+void timer_callback(registers_t regs)
 {
-    // update tick
-    tick++;
-    screen_print("Tick: ", 0x0A);
-    screen_print(itoa(tick, buffer), 0x0A);
-    screen_print("\n", 0x0A);
+    tick++; // update tick
 }
 
+// get the current tick count
+u32 timer_getTicks()
+{
+    return tick;
+}
+
+// reset the timer
+void timer_reset()
+{
+    tick = 0;
+}
+
+// wait 'n' ticks
+void timer_wait(u32 n) {
+    // get the current tick counter
+    u32 currentTicks = tick;
+
+    // loop until it increases 'n'
+    while(tick < currentTicks + n);
+}
+
+// initialize the timer
 void timer_init(u32 frequency)
 {
     screen_print("\ninitializing timer...\n", 0x0A);
@@ -33,3 +52,4 @@ void timer_init(u32 frequency)
     port_byteOut(0x40, (u8) LOWEST8(divisor));
     port_byteOut(0x40, (u8) HIGHEST8(divisor));
 }
+

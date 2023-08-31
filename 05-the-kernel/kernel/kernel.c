@@ -18,14 +18,14 @@ void main()
     // init stuff
     idt_init();
     keyboard_init();
+    timer_init(1);
+
+    // welcome screen
+    screen_clear();
+    screen_printAt("WELCOME!", MAX_ROWS/2, MAX_COLS/2-4, 0x0A);
+    timer_wait(200);
     screen_clear();
 
     // init command line
     screen_print("> ", 0x0A);
-}
-
-void user_input(char *input)
-{
-    screen_print(input,  0x0A);
-    screen_print("\n> ", 0x00);
 }
