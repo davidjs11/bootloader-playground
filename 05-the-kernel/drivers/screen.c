@@ -145,6 +145,18 @@ void screen_scroll(u8 rows)
     }
 }
 
+// delete the last character in the current line
+void screen_deletelast()
+{
+    u16 offset = getCursorOffset(); // get offset
+
+    // delete last character
+    if ((offset-1)%MAX_COLS > 3)
+        *((char *) VIDEO_ADDRESS + (offset-=2)) = 0;
+
+    setCursorOffset(offset);        // set offset
+}
+
 
 /// private functions ///////////////////////
 

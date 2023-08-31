@@ -48,13 +48,12 @@ void keyboard_callback(registers_t regs)
     if (scancode > MAX_SC) return;
 
     if (scancode == BACKSPACE) {
+        screen_deletelast();
         str_backspace(keybuffer);
     }
 
     else if (scancode == ENTER) {
-        screen_print("\n", 0x0A);
-        screen_print(keybuffer, 0x0A);
-        screen_print("\n", 0x0A);
+        screen_print("\n> ", 0x0A);
         memset(keybuffer, 0x00, 256);
     }
 

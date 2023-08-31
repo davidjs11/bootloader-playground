@@ -28,6 +28,7 @@ void screen_print(char *str, u8 color);
 void screen_moveCursor(u8 row, u8 col);
 void screen_clear();
 void screen_scroll(u8 rows);
+void screen_deletelast();
 
 
 #endif  // SCREEN_H
