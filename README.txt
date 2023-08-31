@@ -9,7 +9,7 @@ environment
     languages: assembly and C
     assembler: nasm
     compiler/linker: custom gcc/ld for i386
-    machine: qemu
+    v.machine: qemu
 
 
 ================= stages ==================
@@ -36,11 +36,13 @@ stages of the project
 
 - 05-the-kernel
     just the kernel. now with interrupt
-    handling!
+    handling! and now it looks a bit like
+    a terminal.
 
 i decided to separate them in order to show
 the different stages the project has gone
 through.
+
 
 ============= current status ==============
 
@@ -50,6 +52,11 @@ it doesn't do barely anything relevant.
 drivers:
     - ports.c: basic I/O operations with ports.
     - screen.c: VGA text mode functions.
+    - keyboard.c: keyboard interrupt handling.
+    - timer.c: timer for programming ticks.
+
+commands:
+    - HALT: shuts down CPU.
 
 
 =============== resources =================
