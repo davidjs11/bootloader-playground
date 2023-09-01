@@ -7,9 +7,10 @@ BOOT		= $(HOME)/boot
 KERNEL		= $(HOME)/kernel
 DRIVERS		= $(HOME)/drivers
 CPU			= $(HOME)/cpu
+LIBC		= $(HOME)/libc
 
-C_SOURCES	= $(wildcard $(KERNEL)/*.c $(DRIVERS)/*.c $(CPU)/*.c)
-HEADERS		= $(wildcard $(KERNEL)/*.h $(DRIVERS)/*.h $(CPU)/*.h)
+C_SOURCES	= $(wildcard $(KERNEL)/*.c $(DRIVERS)/*.c $(CPU)/*.c $(LIBC)/*.c)
+HEADERS		= $(wildcard $(KERNEL)/*.h $(DRIVERS)/*.h $(CPU)/*.h $(LIBC)/*.h)
 OBJ			= ${C_SOURCES:.c=.o $(CPU)/interrupt.o}
 
 CC			= i386-elf-gcc
@@ -47,7 +48,7 @@ test: all clean
 
 %.o: %.c ${HEADERS}
 	@echo "[+] compiling $<..."
-	@$(CC) -ffreestanding -c $< -o $@ -I$(KERNEL) -I$(DRIVERS) -I$(CPU)
+	@$(CC) -ffreestanding -c $< -o $@ -I$(KERNEL) -I$(DRIVERS) -I$(CPU) -I$(LIBC)
 
 %.o: %.asm
 	@echo "[+] assembling $<..."
@@ -66,4 +67,5 @@ clean:
 	@rm -fr $(DRIVERS)/*.o $(DRIVERS)/*.bin
 	@rm -fr $(BOOT)/*.o $(BOOT)/*.bin
 	@rm -fr $(CPU)/*.o $(CPU)/*.bin
+	@rm -fr $(LIBC)/*.o $(LIBC)/*.bin
 	@echo "[+] done!"

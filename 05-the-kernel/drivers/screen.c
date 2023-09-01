@@ -1,3 +1,5 @@
+#include "mem.h"
+#include "string.h"
 #include "screen.h"
 #include "ports.h"
 

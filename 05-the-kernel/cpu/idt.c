@@ -1,7 +1,8 @@
 /// idt.c ///////////////////////////////////
 
-#include "ports.h"
 #include "idt.h"
+#include "mem.h"
+#include "ports.h"
 #include "isr.h"
 
 

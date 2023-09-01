@@ -1,6 +1,7 @@
 /// kernel.c ////////////////////////////////
 
 #include "util.h"
+#include "string.h"
 #include "types.h"
 #include "ports.h"
 #include "screen.h"

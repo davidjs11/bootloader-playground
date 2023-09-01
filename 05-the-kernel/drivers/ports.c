@@ -1,7 +1,10 @@
 /// ports.c /////////////////////////////////
+
 #include "ports.h"
 
+
 /// port input //////////////////////////////
+
 u8 port_byteIn(u16 port)
 {
     u8 result;
@@ -22,7 +25,9 @@ u16 port_wordIn(u16 port)
     return result;
 }
 
+
 /// port output /////////////////////////////
+
 void port_byteOut(u16 port, u8 value)
 {
     // send value of 'eax' to port 'edx'

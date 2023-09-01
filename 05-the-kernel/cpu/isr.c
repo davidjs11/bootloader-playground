@@ -1,6 +1,8 @@
 /// isr.c ///////////////////////////////////
 
 #include "isr.h"
+#include "mem.h"
+#include "string.h"
 #include "ports.h"
 #include "screen.h"
 

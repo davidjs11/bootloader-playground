@@ -1,6 +1,8 @@
 /// keyboard.c //////////////////////////////
 
 #include "keyboard.h"
+#include "string.h"
+#include "mem.h"
 #include "idt.h"
 #include "isr.h"
 #include "screen.h"
