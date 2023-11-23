@@ -1,14 +1,14 @@
-============== os-playground ==============
+========== bootloader-playground ==========
 
-just tests for learning how operating
-systems are developed, from the bootloader
-to a simple kernel program, made for the
-x86 processors.
+just tests i made last summer for learning
+how are bootloaders developed, how to go
+from assembly running on bare-metal to
+a high-level language.
 
 environment
     languages: assembly and C
     assembler: nasm
-    compiler/linker: custom gcc/ld for i386
+    compiler/linker: gcc/ld for i386
     v.machine: qemu
 
 
@@ -35,7 +35,7 @@ stages of the project
     and linking it with the bootloader.
 
 - 05-the-kernel
-    just the kernel. now with interrupt
+    the """kernel""". now with interrupt
     handling! and now it looks a bit like
     a terminal.
 
